@@ -258,9 +258,9 @@
 
     <div class="tab-panel active" id="tab-mac">
       <div class="step"><div class="n">1</div><p>Open the downloaded <b>.dmg</b> and drag <b>Alerty</b> into your Applications folder.</p></div>
-      <div class="step"><div class="n">2</div><p>Double-clicking will show <b>"Apple could not verify this app."</b> Click <b>Done</b>, don't move it to Trash.</p></div>
-      <div class="step"><div class="n">3</div><p><b>Right-click (or Control-click)</b> the Alerty icon → choose <b>Open</b> → click <b>Open</b> again in the dialog. You only need to do this once.</p></div>
-      <div class="warn-box">If it still won't open: go to <b>System Settings → Privacy &amp; Security</b>, scroll down, and click <b>"Open Anyway"</b> next to the Alerty message.</div>
+      <div class="step"><div class="n">2</div><p>Double-clicking will say <b>"Alerty is damaged and can't be opened."</b> This is a standard macOS warning for independent apps that aren't Apple-notarized — it is not actually damaged. Don't move it to Trash.</p></div>
+      <div class="step"><div class="n">3</div><p>Open <b>System Settings → Privacy &amp; Security</b>, scroll down — you'll see "Alerty was blocked." Click <b>Open Anyway</b>, then confirm once more. You only need to do this the first time.</p></div>
+      <div class="warn-box">Still stuck? Open <b>Terminal</b> and run: <code>xattr -cr /Applications/Alerty.app</code> — then open it normally. This removes the browser's download quarantine flag, which is what triggers the warning.</div>
     </div>
 
     <div class="tab-panel" id="tab-win">
