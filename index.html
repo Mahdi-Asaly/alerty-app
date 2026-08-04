@@ -271,10 +271,10 @@
   <h1 data-i18n-html="hero_title">Premium alerts for your<br/>TikTok LIVE stream</h1>
   <p class="sub" data-i18n="hero_sub">Follow, like, gift &amp; join alerts, real-time leaderboards, and interactive widgets — straight into OBS or Streamlabs as browser sources. Free trial, no credit card.</p>
   <div class="cta-row" id="cta-row">
-    <a class="btn btn-primary" id="btn-mac" href="#">
+    <a class="btn btn-primary" id="btn-mac" href="https://github.com/Mahdi-Asaly/alerty-app/releases/download/v1.0.1/Alerty-1.0.1-arm64.dmg" target="_blank" rel="noopener">
       <span data-i18n="btn_mac">✨ Try Alerty Free — Mac</span>
     </a>
-    <a class="btn btn-secondary" id="btn-win" href="#">
+    <a class="btn btn-secondary" id="btn-win" href="https://github.com/Mahdi-Asaly/alerty-app/releases/download/v1.0.1/Alerty-Setup-1.0.1.exe" target="_blank" rel="noopener">
       <span data-i18n="btn_win">🪟 Try Alerty Free — Windows</span>
     </a>
   </div>
@@ -339,8 +339,8 @@
     <h2 data-i18n="download_h2">Download Alerty</h2>
     <p class="section-sub" id="download-sub" data-i18n="download_sub_loading">Fetching the latest release…</p>
     <div class="cta-row">
-      <a class="btn btn-primary" id="btn-mac-2" href="#"><span data-i18n="btn_mac2">🍎 macOS (.dmg)</span></a>
-      <a class="btn btn-secondary" id="btn-win-2" href="#"><span data-i18n="btn_win2">🪟 Windows (.exe)</span></a>
+      <a class="btn btn-primary" id="btn-mac-2" href="https://github.com/Mahdi-Asaly/alerty-app/releases/download/v1.0.1/Alerty-1.0.1-arm64.dmg" target="_blank" rel="noopener"><span data-i18n="btn_mac2">🍎 macOS (.dmg)</span></a>
+      <a class="btn btn-secondary" id="btn-win-2" href="https://github.com/Mahdi-Asaly/alerty-app/releases/download/v1.0.1/Alerty-Setup-1.0.1.exe" target="_blank" rel="noopener"><span data-i18n="btn_win2">🪟 Windows (.exe)</span></a>
     </div>
   </div>
 </section>
@@ -527,16 +527,15 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
     btnWin: [document.getElementById('btn-win'), document.getElementById('btn-win-2')],
   };
 
-  // Baseline: every download button works immediately, before/without the API.
-  [...els.btnMac, ...els.btnWin].forEach(b => { if (b) { b.href = RELEASES; b.target = '_blank'; b.rel = 'noopener'; } });
-
+  // The buttons already carry hardcoded direct-download links in the HTML, so
+  // they work with zero JS / API. This only ever UPGRADES them to the newest
+  // release's direct link — it never blanks them or points to a list page.
   function setLinks(btns, url, label) {
     btns.forEach(b => {
       if (!b) return;
-      b.href = url || RELEASES;          // never dead — worst case, the releases page
-      b.target = '_blank'; b.rel = 'noopener';
+      if (url) { b.href = url; b.target = '_blank'; b.rel = 'noopener'; } // upgrade only; else keep hardcoded href
       b.style.opacity = ''; b.style.pointerEvents = '';
-      const span = b.querySelector('span'); if (span) span.textContent = label;
+      const span = b.querySelector('span'); if (span && label) span.textContent = label;
     });
   }
 
@@ -588,7 +587,7 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
 
     const assets = release.assets || [];
     const dmg = assets.find(a => a.name.endsWith('.dmg'));
-    const winExe = assets.find(a => a.name.endsWith('.exe') && !/portable/i.test(a.name)) || assets.find(a => a.name.endsWith('.exe'));
+    const winExe = assets.find(a => /setup/i.test(a.name) && a.name.endsWith('.exe')) || assets.find(a => a.name.endsWith('.exe') && !/portable/i.test(a.name)) || assets.find(a => a.name.endsWith('.exe'));
     const macYml = assets.find(a => a.name === 'latest-mac.yml');
     const winYml = assets.find(a => a.name === 'latest.yml');
 
