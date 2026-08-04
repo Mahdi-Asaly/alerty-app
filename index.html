@@ -514,6 +514,10 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
 (function () {
   const REPO = 'Mahdi-Asaly/alerty-app';
   const API = `https://api.github.com/repos/${REPO}/releases/latest`;
+  // Always-working fallback: the public releases page. Used whenever a direct
+  // asset link isn't available (GitHub API rate-limited/offline, or a platform
+  // build isn't published yet) so a download button is NEVER dead.
+  const RELEASES = `https://github.com/${REPO}/releases/latest`;
 
   const els = {
     versionNote: document.getElementById('version-note'),
@@ -523,8 +527,17 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
     btnWin: [document.getElementById('btn-win'), document.getElementById('btn-win-2')],
   };
 
+  // Baseline: every download button works immediately, before/without the API.
+  [...els.btnMac, ...els.btnWin].forEach(b => { if (b) { b.href = RELEASES; b.target = '_blank'; b.rel = 'noopener'; } });
+
   function setLinks(btns, url, label) {
-    btns.forEach(b => { if (!b) return; b.href = url || '#'; if (!url) { b.style.opacity = .5; b.style.pointerEvents = 'none'; } b.querySelector('span').textContent = label; });
+    btns.forEach(b => {
+      if (!b) return;
+      b.href = url || RELEASES;          // never dead — worst case, the releases page
+      b.target = '_blank'; b.rel = 'noopener';
+      b.style.opacity = ''; b.style.pointerEvents = '';
+      const span = b.querySelector('span'); if (span) span.textContent = label;
+    });
   }
 
   async function fetchYamlSha512(url, filename) {
