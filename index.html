@@ -57,22 +57,8 @@
   .grain { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .035; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-  /* ── Reveal-on-scroll ── */
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
-  .reveal.in { opacity: 1; transform: none; }
-  .reveal-stagger.in > * { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both; }
-  .reveal-stagger.in > *:nth-child(1) { animation-delay: .02s; }
-  .reveal-stagger.in > *:nth-child(2) { animation-delay: .08s; }
-  .reveal-stagger.in > *:nth-child(3) { animation-delay: .14s; }
-  .reveal-stagger.in > *:nth-child(4) { animation-delay: .20s; }
-  .reveal-stagger.in > *:nth-child(5) { animation-delay: .26s; }
-  .reveal-stagger.in > *:nth-child(6) { animation-delay: .32s; }
-  .reveal-stagger.in > *:nth-child(7) { animation-delay: .38s; }
-  .reveal-stagger.in > *:nth-child(8) { animation-delay: .44s; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; animation: none !important; }
     .aurora span, .hv-card, .float-el { animation: none !important; }
   }
 
@@ -400,9 +386,9 @@
 
 <section id="showcase">
   <div class="wrap">
-    <span class="eyebrow reveal" data-i18n="eyebrow_showcase">Live Widgets</span>
-    <h2 class="reveal" data-i18n="showcase_h2">See every widget in action</h2>
-    <p class="section-sub reveal" data-i18n="showcase_sub">Real screenshots straight from the app — not mockups. This is exactly what shows up in OBS.</p>
+    <span class="eyebrow" data-i18n="eyebrow_showcase">Live Widgets</span>
+    <h2  data-i18n="showcase_h2">See every widget in action</h2>
+    <p class="section-sub" data-i18n="showcase_sub">Real screenshots straight from the app — not mockups. This is exactly what shows up in OBS.</p>
     <div class="showcase-grid">
       <div class="sc-card"><div class="sc-shot"><img src="images/gift-alert.png" alt="Gift alert" /></div><div class="sc-body"><h3 data-i18n="sc1_h">Gift Alert</h3><p data-i18n="sc1_p">Animated card for every gift, fully skinnable.</p></div></div>
       <div class="sc-card"><div class="sc-shot"><img src="images/follow-alert.png" alt="Follow alert" /></div><div class="sc-body"><h3 data-i18n="sc2_h">Follow Alert</h3><p data-i18n="sc2_p">Celebrate every new follower live on-stream.</p></div></div>
@@ -418,10 +404,10 @@
 
 <section id="features">
   <div class="wrap">
-    <span class="eyebrow reveal" data-i18n="eyebrow_more">And Then Some</span>
-    <h2 class="reveal" data-i18n="more_h2">Plus everything else you'd expect</h2>
-    <p class="section-sub reveal" data-i18n="more_sub">One app, one set of browser sources — no juggling five different overlay tools.</p>
-    <div class="more-strip reveal reveal-stagger">
+    <span class="eyebrow" data-i18n="eyebrow_more">And Then Some</span>
+    <h2  data-i18n="more_h2">Plus everything else you'd expect</h2>
+    <p class="section-sub" data-i18n="more_sub">One app, one set of browser sources — no juggling five different overlay tools.</p>
+    <div class="more-strip">
       <div class="more-item"><div class="ico">⚔️</div><h3 data-i18n="f5_h">Battle &amp; Prediction Widgets</h3><p data-i18n="f5_p">Run live battles and audience predictions directly on-stream.</p></div>
       <div class="more-item"><div class="ico">🌐</div><h3 data-i18n="f6_h">English &amp; Arabic</h3><p data-i18n="f6_p">Switch the app UI and widget language independently, with full RTL support.</p></div>
       <div class="more-item"><div class="ico">⭐</div><h3 data-i18n="f7_h">Points &amp; Chat Commands</h3><p data-i18n="f7_p">Viewers earn points from likes, gifts and chat activity — with points!, rank!, and top! commands built in.</p></div>
@@ -431,7 +417,7 @@
 </section>
 
 <section id="download">
-  <div class="wrap final-cta reveal">
+  <div class="wrap final-cta">
     <h2 data-i18n="download_h2">Download Alerty</h2>
     <p class="section-sub" id="download-sub" data-i18n="download_sub_loading">Fetching the latest release…</p>
     <div class="cta-row">
@@ -443,15 +429,15 @@
 
 <section id="install">
   <div class="wrap">
-    <span class="eyebrow reveal" data-i18n="eyebrow_install">Setup</span>
-    <h2 class="reveal" data-i18n="install_h2">Installing it safely</h2>
-    <p class="section-sub reveal" data-i18n="install_sub">Alerty isn't code-signed yet, so your OS will show a one-time warning on first launch. This is normal for independent apps — here's exactly what to click.</p>
-    <div class="tabs reveal">
+    <span class="eyebrow" data-i18n="eyebrow_install">Setup</span>
+    <h2  data-i18n="install_h2">Installing it safely</h2>
+    <p class="section-sub" data-i18n="install_sub">Alerty isn't code-signed yet, so your OS will show a one-time warning on first launch. This is normal for independent apps — here's exactly what to click.</p>
+    <div class="tabs">
       <button class="tab-btn active" data-tab="mac"><span data-i18n="tab_mac">🍎 macOS</span></button>
       <button class="tab-btn" data-tab="win"><span data-i18n="tab_win">🪟 Windows</span></button>
     </div>
 
-    <div class="tab-panel active reveal" id="tab-mac">
+    <div class="tab-panel active" id="tab-mac">
       <div class="step"><div class="n">1</div><p data-i18n-html="mac_step1">Open the downloaded <b>.dmg</b> and drag <b>Alerty</b> into your Applications folder.</p></div>
       <div class="step"><div class="n">2</div><p data-i18n-html="mac_step2">Double-clicking will say <b>"Alerty is damaged and can't be opened."</b> This is a standard macOS warning for independent apps that aren't Apple-notarized — it is not actually damaged. Don't move it to Trash.</p></div>
       <div class="step"><div class="n">3</div><p data-i18n-html="mac_step3">Open <b>System Settings → Privacy &amp; Security</b>, scroll down — you'll see "Alerty was blocked." Click <b>Open Anyway</b>, then confirm once more. You only need to do this the first time.</p></div>
@@ -469,9 +455,9 @@
 
 <section id="verify">
   <div class="wrap">
-    <h2 class="reveal" data-i18n="verify_h2">Verify the download (optional)</h2>
-    <p class="section-sub reveal" data-i18n="verify_sub">If you want to confirm the file wasn't tampered with in transit, compare its SHA-512 hash against the value electron-builder published with this release.</p>
-    <div class="checksum-box reveal" id="checksum-box" data-i18n="checksum_loading">Loading checksums…</div>
+    <h2  data-i18n="verify_h2">Verify the download (optional)</h2>
+    <p class="section-sub" data-i18n="verify_sub">If you want to confirm the file wasn't tampered with in transit, compare its SHA-512 hash against the value electron-builder published with this release.</p>
+    <div class="checksum-box" id="checksum-box" data-i18n="checksum_loading">Loading checksums…</div>
   </div>
 </section>
 
@@ -759,32 +745,14 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
   setInterval(loadTrustStats, 60000);
 })();
 
-// ── Visual polish: sticky-nav blur on scroll + scroll-reveal animations ────
+// ── Visual polish: sticky-nav blur on scroll ────────────────────────────────
 // Purely presentational, no dependency on / effect on the functional JS above.
-// Wrapped in try/catch, and backed by a hard timeout fallback — content must
-// never stay invisible just because an animation trigger didn't fire.
 (function () {
-  try {
-    const nav = document.getElementById('nav');
-    if (nav) {
-      const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }
-
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-    }
-  } catch (_) {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-  }
-  // Safety net: whatever the reason, nothing stays invisible forever.
-  setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 2500);
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();
 </script>
 
