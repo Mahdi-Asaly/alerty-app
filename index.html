@@ -374,7 +374,7 @@
   </div>
   <div class="hero-note" id="version-note" data-i18n="hero_note_loading">Loading latest version…</div>
 
-  <div class="hero-visual reveal">
+  <div class="hero-visual">
     <div class="hv-card hv-1"><img src="images/gift-alert.png" alt="Gift alert widget" loading="eager" /></div>
     <div class="hv-card hv-2"><img src="images/like-goal.png" alt="Like goal widget" loading="eager" /></div>
     <div class="hv-card hv-3"><img src="images/top3-leaderboard.png" alt="Top 3 leaderboard widget" loading="eager" /></div>
@@ -382,7 +382,7 @@
 </div>
 
 <div class="wrap">
-  <div class="trust-bar reveal" id="trust-bar">
+  <div class="trust-bar" id="trust-bar">
     <div class="trust-stat">
       <div class="trust-num"><span class="live-pulse"></span><span id="stat-online">—</span></div>
       <div class="trust-label" data-i18n="trust_online">streamers live right now</div>
@@ -403,7 +403,7 @@
     <span class="eyebrow reveal" data-i18n="eyebrow_showcase">Live Widgets</span>
     <h2 class="reveal" data-i18n="showcase_h2">See every widget in action</h2>
     <p class="section-sub reveal" data-i18n="showcase_sub">Real screenshots straight from the app — not mockups. This is exactly what shows up in OBS.</p>
-    <div class="showcase-grid reveal reveal-stagger">
+    <div class="showcase-grid">
       <div class="sc-card"><div class="sc-shot"><img src="images/gift-alert.png" alt="Gift alert" /></div><div class="sc-body"><h3 data-i18n="sc1_h">Gift Alert</h3><p data-i18n="sc1_p">Animated card for every gift, fully skinnable.</p></div></div>
       <div class="sc-card"><div class="sc-shot"><img src="images/follow-alert.png" alt="Follow alert" /></div><div class="sc-body"><h3 data-i18n="sc2_h">Follow Alert</h3><p data-i18n="sc2_p">Celebrate every new follower live on-stream.</p></div></div>
       <div class="sc-card"><div class="sc-shot"><img src="images/like-alert.png" alt="Like alert" /></div><div class="sc-body"><h3 data-i18n="sc3_h">Like Alert</h3><p data-i18n="sc3_p">Shows off like bursts as they roll in.</p></div></div>
@@ -761,22 +761,30 @@ applyLang(localStorage.getItem('alertyLang') || 'ar');
 
 // ── Visual polish: sticky-nav blur on scroll + scroll-reveal animations ────
 // Purely presentational, no dependency on / effect on the functional JS above.
+// Wrapped in try/catch, and backed by a hard timeout fallback — content must
+// never stay invisible just because an animation trigger didn't fire.
 (function () {
-  const nav = document.getElementById('nav');
-  if (nav) {
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
+  try {
+    const nav = document.getElementById('nav');
+    if (nav) {
+      const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  } catch (_) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
+  // Safety net: whatever the reason, nothing stays invisible forever.
+  setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 2500);
 })();
 </script>
 
